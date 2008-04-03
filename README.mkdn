@@ -1,0 +1,86 @@
+rdie
+====
+
+[rdie][1] is self-hosted gaming webware. You install and configure it - and then you play games. rdie can be used for nearly any 'PnP' or [table-top role-playing game][2], such as Dungeons & Dragons and other D20 games, or RIFTS.
+
+  [1]: <http://rdie.yreality.net> (rdie homepage)
+  [2]: <http://en.wikipedia.org/wiki/Role-playing_game> (Role-playing game - Wikipedia)
+
+Philosophy & goals
+------------------
+
+rdie is intended to be a way to bring such old favorites from gaming history into the modern age. Games like Dungeons & Dragons were much more fun than the currently popular, and more modern, computer and console games. However, such games simply could not survive the modern world - who has the time any more to drive to somebody's house, and spend a saturday locked in a basement to get their fix of fun? No, we all prefer to take thirty minutes or an hour out of a boring work day, or after said day, and plunge into the world of a computer or console game. Even though such games are extremely limited in flexibility (after all, unlike in 'real' games, you cannot do anything in computer games that wasn't previously considered and written in by the game programmers - what game have you seen where you can decide to eat a troll-leg sandwich to celebrate your victory?), they satisfy our need for quick, easily-accessible fun. Also, the multiplayer aspects of these games don't require you to find local people with which to play; although this is possible with so-called 'LAN parties', you can simply search the database of currently online people for one with whom to play. It connects people across continents, which one could not in the past do.
+
+With rdie, we hope to solve this. You can install rdie on a server you own, on your web-accessible home computer, or on a shared hosting environment - and then you can invite people you meet online to join a game. Once installed, you will need to configure rdie for a game; there exist packages for such popular games as Dungeons & Dragons and RIFTS... but you can write your own gaming system, or extend an existing one with your own scripts. Once your system is configured, you can invite your friends to 'campaigns' on your rdie install. One person, the Game Master (or 'GM') will control the game, and the players will play through 'scripts' that utilize and embody game rules. For instance, there might be an Attack script that would do whatever calculations and die roles are necessary in your gaming system, and request the changes in health and whatnot from the GM. Or perhaps a Pick Lock script to do the same for a lock picking skill or ability in your game. Unlike traditional computer games, you can do anything you feel like doing in these games, just as was possible back in the days of D&D and the like.
+
+To achieve this programmatically, everything will be a script. rdie, and it's scripts, will be written in the popular [Ruby programming language][1]. Both concepts within the gaming system, and items/monsters/places/people/spells within the setting will be scripts. One might write a script for a house rule weapon as simply as this:
+
+    class Lightsaber < DnD::Weapon
+      DAMAGE = [1, :d6]
+
+      def damage
+        Rdie::roll DAMAGE
+      end
+    end
+
+Then the system's 'Attack' script might check which weapon a character has equipped, and then call that weapon's 'Damage' method. This is not a true example you could implement now, it would likely be quite a bit more complicated - but the basic concept remains the same.
+
+To summarize:
+
+ - anyone can install and run an rdie system
+ - anyone can run as many games (and as many campaigns in the games, and as many characters in the campaigns, and so on) as they please
+ - a player can do anything they can dream up, unlike in modern electronic games
+ - players can connect with others from around the world to play the games
+ - players can play whenever they and the other players want to
+ - players and DMs can control the entire gaming system through scripts; absolutely nothing is hardcoded into rdie
+
+We hope rdie will be the best thing to happen in gaming since [Gary Gygax][2] (rest in peace, friend), to whom it is dedicated.
+
+  [1]: <http://ruby-lang.org/en> (Ruby programming language)
+  [2]: <http://youtube.com/watch?v=hxo9gFBHJsE> (Gary Gygax on D&D - YouTube)
+
+Getting
+-------
+
+The authoritative source for this project is available at
+<http://github.com/elliottcable/rdie>. You can clone your own copy with the
+following command:
+
+    git clone git://github.com/elliottcable/rdie.git
+
+If you want to make changes to the codebase, you need to fork your own github
+repository for said changes. Send a pullrequest to [elliottcable][4]
+when you've got something ready for the master that you think should be
+integrated into the root source.
+
+  [4]: <http://github.com/elliottcable> (elliottcable's github account)
+
+Requirements
+------------
+
+To run fora, you need the following gems:
+
+* merb-core
+* datamapper (and associated do_postgres, do_mysql, etc)
+* merb_datamapper (from merb-plugins)
+
+To develop and contribute to fora, you also need:
+
+* merb_rspec (from merb-plugins)
+* rspec
+* rake
+
+merb edge
+---------
+
+As it currently stands, we are running on edge merb. When merb 1.0 is released, we will solidify rdie source on top of that version, and stick to major versions. This should happen before rdie is ready for true public consumption anyway.
+
+To easily install the current edge merbs, first install the merb-dev rakefile with sake as follows:
+
+    sudo gem install sake
+    mkdir -p ~/.ruby; cd ~/.ruby
+    sake -i http://github.com/ivey/merb-dev/tree/master/merb-dev.rake?raw=true
+    sake merb:clone
+    cd ~/.ruby/merb
+    sudo sake merb:gems:wipe
+    sudo sake merb:install merb:install:plugins
