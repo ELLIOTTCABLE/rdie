@@ -14,7 +14,12 @@ class D
   
   # This creates a new die object
   def self.[] die
-    new die
+    case die
+    when 00
+      new 100
+    else
+      new die
+    end
   end
   
   def roll
