@@ -69,6 +69,7 @@ To develop and contribute to fora, you also need:
 * merb_rspec (from merb-plugins)
 * rspec
 * rake
+* rcov
 
 merb edge
 ---------
