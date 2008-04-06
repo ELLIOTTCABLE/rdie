@@ -2,7 +2,7 @@ Gem.clear_paths
 Gem.path.unshift(Merb.root / "gems")
 
 $LOAD_PATH.unshift(Merb.root / "lib")
-$LOAD_PATH.unshift(Merb.root / "modules")
+$LOAD_PATH.unshift(Merb.root / "systems")
 
 require 'lib/core_ext/kernel' # For Kernel#acquire
 acquire 'lib/core_ext'
