@@ -5,6 +5,14 @@ end
 
 describe Module do
   it { Module.should respond_to(:attr_default) }
+
+  it "should raise if not passed a block to attr_default" do
+    lambda {
+      module ModuleSpecHelper
+        attr_default(:hit_points)
+      end
+    }.should raise_error(ArgumentError, /default value in block required/i)
+  end
   
   describe "with a default attribute" do
     include ModuleSpecHelper

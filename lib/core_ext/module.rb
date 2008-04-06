@@ -1,7 +1,7 @@
 class Module
   # By Gregor Schmidt, see <http://www.nach-vorne.de/2007/4/24/attr_accessor-on-steroids>
   def attr_default( *syms, &block )
-    raise 'Default value in block required' unless block
+    raise ArgumentError, 'Default value in block required' unless block
     syms.each do | sym |
       module_eval do
         attr_writer( sym )
