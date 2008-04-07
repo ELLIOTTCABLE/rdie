@@ -12,7 +12,7 @@ Merb::Config.use do |c|
   c[:session_store] = 'cookie'
 end  
 
-# use_orm :datamapper
+use_orm :datamapper
 use_test :rspec
 
 Merb::BootLoader.after_app_loads do; end
