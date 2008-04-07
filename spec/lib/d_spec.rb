@@ -53,6 +53,7 @@ describe D do
   
   it "should accept chaining of arbitrary methods" do
     die = D[6].chain :wtf, 'an argument'
+    die.chained.should == [[:wtf, ['an argument']]]
     lambda { die.roll }.should raise_error(NoMethodError,
       /undefined method .wtf. for /)
   end
