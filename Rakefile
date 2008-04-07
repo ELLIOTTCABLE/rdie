@@ -25,6 +25,6 @@ task :merb_env do
 end
 
 # Runs specs, generates rcov, and opens rcov in your browser.
-task :aok => [:rcov] do
+task :aok => [:'spec:coverage'] do
   system 'open coverage/index.html'
 end
