@@ -51,6 +51,12 @@ describe D do
     end
   end
   
+  it "should accept chaining of arbitrary methods" do
+    die = D[6].chain :wtf, 'an argument'
+    lambda { die.roll }.should raise_error(NoMethodError,
+      /undefined method .wtf. for /)
+  end
+  
   # This rolls a D die 250 times, and pushes the unique values into an array.
   def get_rolls die
     (1..250).inject([]) {|array, _| array << die.roll}.uniq

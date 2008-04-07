@@ -54,6 +54,17 @@ class D
     roll
   end
   
+  # Adds a method to the chain
+  def chain method, *args
+    @modifiers << [method, args]
+    self
+  end
+  
+  # Shows chained methods
+  def chained
+    @modifiers
+  end
+  
   private
   # Use #r to actually roll the die, it calls this (as well as applying stored
   # modifer methods).
