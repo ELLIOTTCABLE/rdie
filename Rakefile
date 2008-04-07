@@ -6,6 +6,7 @@ require 'rake'
 require 'rake/rdoctask'
 require 'rake/testtask'
 require 'spec/rake/spectask'
+require 'spec/rake/verify_rcov'
 require 'fileutils'
 require 'merb-core'
 require 'rubigen'
@@ -25,6 +26,15 @@ task :merb_env do
 end
 
 # Runs specs, generates rcov, and opens rcov in your browser.
-task :aok => [:'spec:coverage'] do
+
+Spec::Rake::SpecTask.new('rcov') do |t|
+  t.spec_opts = ["--format", "specdoc", "--colour"]
+  t.spec_files = Dir['spec/**/*_spec.rb'].sort
+  t.libs = ['lib', 'server/lib' ]
+  t.rcov = true
+end
+RCov::VerifyTask.new(:verify_rcov) { |t| t.threshold = 100.0 }
+
+task :aok => [:rcov, :verify_rcov] do
   system 'open coverage/index.html'
 end
