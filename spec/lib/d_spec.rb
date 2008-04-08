@@ -1,7 +1,7 @@
 require File.join( File.dirname(__FILE__), "..", "spec_helper" )
 require 'd'
 
-describe D do
+describe D, ' (the die class)' do
   
   it "should be able to roll standard RPG gaming die" do
     [4, 6, 8, 10, 12, 20].each do |die|
