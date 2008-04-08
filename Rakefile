@@ -34,11 +34,19 @@ Spec::Rake::SpecTask.new('rcov') do |t|
   t.rcov = true
   t.rcov_dir = :meta / :coverage
 end
-task(:open_rcov) { system 'open "meta/coverage/index.html"' }
-RCov::VerifyTask.new(:verify_rcov) do |t|
-  t.threshold = 100
-  t.index_html = 'meta/coverage/index.html'
+
+namespace :rcov do
+  desc "Fail unless rcov covers 100% of the code"
+  RCov::VerifyTask.new(:verify) do |t|
+    t.threshold = 100
+    t.index_html = 'meta/coverage/index.html'
+  end
+
+  desc "Open a browser window with the coverage report (Mac only)"
+  task :open do
+    system 'open "meta/coverage/index.html"'
+  end
 end
 
 desc 'Check everything over before commiting'
-task :aok => [:rcov, :open_rcov, :verify_rcov]
+task :aok => [:rcov, :"rcov:verify"]
