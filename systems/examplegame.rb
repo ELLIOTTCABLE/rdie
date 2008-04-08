@@ -91,7 +91,7 @@ class ExampleGame::Creature
   # the standard #attack method.
   def __attack__(target)
     raise 'No weapon equipped' unless
-      @equipped.class.ancestors.include? ExampleGame::Weapon
+      equipped.class.ancestors.include? ExampleGame::Weapon
     
     target.hp -= equipped.damage
     target
