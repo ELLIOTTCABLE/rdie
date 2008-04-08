@@ -32,9 +32,13 @@ Spec::Rake::SpecTask.new('rcov') do |t|
   t.spec_files = Dir['spec/**/*_spec.rb'].sort
   t.libs = ['lib', 'server/lib' ]
   t.rcov = true
+  t.rcov_dir = :meta / :coverage
 end
-RCov::VerifyTask.new(:verify_rcov) { |t| t.threshold = 100.0 }
+task(:open_rcov) { system 'open "meta/coverage/index.html"' }
+RCov::VerifyTask.new(:verify_rcov) do |t|
+  t.threshold = 95.9
+  t.index_html = 'meta/coverage/index.html'
+end
 
-task :aok => [:rcov, :verify_rcov] do
-  system 'open coverage/index.html'
-end
+desc 'Check everything over before commiting'
+task :aok => [:rcov, :open_rcov, :verify_rcov]
