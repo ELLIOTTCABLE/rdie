@@ -23,18 +23,36 @@ module ExampleGame
   
   # You can put more global methods here, that might be useful across the
   # project.
-  
-  def initiate_encounter(*involvees)
-    involvees.map do |involvee|
-      raise ArgumentError, 'Only creatures can be involved in an encounter' unless
-        involvee.class.ancestors.include? ExampleGame::Creature
-      
-      D[20] + involvee.initiative
-    end
-  end
 end
 
 class ExampleGame::TargetError < ArgumentError; end
+
+class ExampleGame::Encounter
+  def initialize(*creatures)
+    raise ArgumentError, 'You must have at least two Creatures for an Encounter' unless
+      creatures.size >= 2
+      
+    creatures.each do |creature|
+      raise ArgumentError, 'Only Creatures can be involved in an Encounter' unless
+        creature.class.ancestors.include? ExampleGame::Creature
+    end
+    
+    involved = creatures.inject Hash.new do |hash, creature|
+      initiative = D[20].roll + creature.initiative
+      
+      until !hash[initiative]
+        initiative = D[20].roll + creature.initiative
+      end
+      
+      hash[initiative] = creature
+      hash
+    end
+    
+    @involved = involved.keys.sort.inject([]) { |acc,k| acc << involved[k] }
+  end
+  
+  attr_accessor :involved
+end
 
 # --- -- --- -- --- -- --- -- --- -- --- -- --- -- --- -- --- #
 
@@ -122,11 +140,11 @@ class ExampleGame::Creature
     raise ArgumentError unless
       item.class.ancestors.include? ExampleGame::Item
     
-    S.equipped = item
+    self.equipped = item
   end
   
   def unequip
-    S.equipped = nil
+    self.equipped = nil
   end
 end
 
