@@ -25,7 +25,6 @@ task :merb_env do
 end
 
 # Runs specs, generates rcov, and opens rcov in your browser.
-
 Spec::Rake::SpecTask.new('rcov') do |t|
   t.spec_opts = ["--format", "specdoc", "--colour"]
   t.spec_files = Dir['spec/**/*_spec.rb'].sort
@@ -47,5 +46,12 @@ namespace :rcov do
   end
 end
 
+# Well that was a waste of time...
+# Rake::RDocTask.new do |d|
+#   d.main = "meta/docs/index.rdoc"
+#   d.rdoc_files.include("app/**/*.rb", "lib/**/*.rb")
+#   d.rdoc_dir = :meta / :documentation
+# end
+
 desc 'Check everything over before commiting'
-task :aok => [:rcov, :"rcov:verify"]
+task :aok => [:rcov, :"rcov:verify", :rdoc]
