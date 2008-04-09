@@ -4,7 +4,6 @@ Gem.path.unshift(File.join(File.dirname(__FILE__), "gems"))
 
 require 'rake'
 require 'rake/rdoctask'
-require 'rake/testtask'
 require 'spec/rake/spectask'
 require 'spec/rake/verify_rcov'
 require 'fileutils'
@@ -18,7 +17,7 @@ init_env = ENV['MERB_ENV'] || 'rake'
 Merb.load_dependencies(:environment => init_env)
      
 # Get Merb plugins and dependencies
-Merb::Plugins.rakefiles.each { |r| require r } 
+Merb::Plugins.rakefiles.each { |r| require r }
 
 desc "start runner environment"
 task :merb_env do
