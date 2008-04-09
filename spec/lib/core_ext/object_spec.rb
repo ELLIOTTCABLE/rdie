@@ -9,7 +9,7 @@ describe 'Core extensions:' do
       
       on_execute __FILE__ do
         true
-      end.should be true
+      end.should be_true
     end
   end
 end
