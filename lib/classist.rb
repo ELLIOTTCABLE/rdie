@@ -9,6 +9,7 @@ end
 
 class Object
   def self.inherited(klass)
+    return if klass.name == ''
     ancestors = klass.name.split('::')
     
     ancestors = ancestors.inject([Object.send(:const_get, ancestors.first)]) do |acc, ancestor|
@@ -21,5 +22,6 @@ class Object
         classize(klass)
       end
     end
+    nil
   end
 end
