@@ -2,7 +2,7 @@ require 'rdie'
 
 # This is an example system to exhibit system creation. To 'play' the game,
 # use the following in `merb -i`:
-#     require 'examplegame'
+#     require 'example_game'
 # 
 #     elliott = ExampleGame::Character.new
 #     puts elliott.hp
@@ -22,8 +22,21 @@ module ExampleGame
   include RDie::System
   
   # You can put more global methods here, that might be useful across the
-  # project. They aren't applicable to the users, just for your own use.
+  # project.
+  
+  def initiate_encounter(*involvees)
+    involvees.map do |involvee|
+      raise ArgumentError, 'Only creatures can be involved in an encounter' unless
+        involvee.class.ancestors.include? ExampleGame::Creature
+      
+      D[20] + involvee.initiative
+    end
+  end
 end
+
+class ExampleGame::TargetError < ArgumentError; end
+
+# --- -- --- -- --- -- --- -- --- -- --- -- --- -- --- -- --- #
 
 class ExampleGame::Item; end
 
@@ -35,7 +48,7 @@ class ExampleGame::Weapon < ExampleGame::Item
   # Unlike setting the HP on a new character before, this attribute is a die,
   # and as such, it isn't actually _rolled_ on creation. Methods that
   # reference it should remember to roll it if necessary.
-  attr_default(:damage_die) { D[4] }
+  attr_accessor :damage_die => D[4]
   
   # A character holding this weapon will call Character#attack, which grabs
   # the damage from this method.
@@ -45,15 +58,18 @@ class ExampleGame::Weapon < ExampleGame::Item
 end
 
 class ExampleGame::Sword < ExampleGame::Weapon
-  attr_default(:damage_die) { D[8] }
+  attr_accessor :damage_die => D[8]
 end
+
+# --- -- --- -- --- -- --- -- --- -- --- -- --- -- --- -- --- #
 
 class ExampleGame::Creature
   # attr_default is available to you; it is similar to attr_accessor, except
   # that it takes a block, initializing the instance variables to the return
   # value of the block
-  attr_default(:hp) { D[10].roll }
-  attr_default(:equipped) {}
+  attr_accessor :hp => D[10].roll
+  attr_accessor :equipped
+  attr_accessor :initiative => 0
   
   # Methods work exactly as in normal ruby; normal methods will be available
   # to players and their scripts, private methods are not - mark methods as
@@ -76,7 +92,10 @@ class ExampleGame::Creature
   # class to use; Creatures can't actually check the validity as a target of
   # another object in-game.
   def check_target_validity_of target
-    raise 'TargetError' unless target.class.ancestors.include? ExampleGame::Creature
+    raise ExampleGame::TargetError unless
+      target.class.ancestors.include? ExampleGame::Creature
+    
+    target
   end
   
   # Same here - you can't attack with a weapon that isn't equipped, so #attack
@@ -97,22 +116,21 @@ class ExampleGame::Creature
     target
   end
   
-  public # --- -- --- -- --- -- --- -- --- -- --- -- --- -- --- -- --- #
+  public
   
   def equip item
-    raise 'No weapon equipped' unless
+    raise ArgumentError unless
       item.class.ancestors.include? ExampleGame::Item
     
-    self.equipped = item
+    S.equipped = item
   end
   
   def unequip
-    self.equipped = nil
+    S.equipped = nil
   end
 end
 
 class ExampleGame::Character < ExampleGame::Creature
-  attr_default(:hp) { D[12].roll } # That's right, player characters are
-                                   # stronger than most!
-  
+  attr_accessor :hp => D[12].roll # That's right, player characters are
+                                  # stronger than most!
 end

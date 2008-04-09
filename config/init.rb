@@ -1,8 +1,9 @@
 Gem.clear_paths
 Gem.path.unshift(Merb.root / "gems")
 
-$LOAD_PATH.unshift(Merb.root / "lib")
-$LOAD_PATH.unshift(Merb.root / "systems")
+Dir[Merb.root / "systems" / "*"].each do |system|
+  $LOAD_PATH.unshift(system / "lib") if File.directory? system
+end
 
 require 'lib/core_ext/kernel' # For Kernel#acquire
 acquire 'lib/core_ext'

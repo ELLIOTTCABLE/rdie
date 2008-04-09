@@ -9,6 +9,11 @@ module RDie::System
       
       def self.classize(klass)
         klass.extend RDie::System::ClassHook
+        
+        klass.class_eval do
+          self.send(:remove_const, :S) if const_defined? :S
+          self.send(:const_set, :S, self)
+        end
       end
       
       acquire File.join('systems', self.name.split('::').last.downcase)
