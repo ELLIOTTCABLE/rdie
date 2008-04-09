@@ -25,24 +25,24 @@ task :merb_env do
 end
 
 # Runs specs, generates rcov, and opens rcov in your browser.
-Spec::Rake::SpecTask.new('rcov') do |t|
-  t.spec_opts = ["--format", "specdoc", "--colour"]
-  t.spec_files = Dir['spec/**/*_spec.rb'].sort
-  t.libs = ['lib', 'server/lib' ]
-  t.rcov = true
-  t.rcov_dir = :meta / :coverage
-end
-
 namespace :rcov do
-  desc "Fail unless rcov covers 100% of the code"
+  Spec::Rake::SpecTask.new(:run) do |t|
+    t.spec_opts = ["--format", "specdoc", "--colour"]
+    t.spec_files = Dir['spec/**/*_spec.rb'].sort
+    t.libs = ['lib', 'server/lib' ]
+    t.rcov = true
+    t.rcov_dir = :meta / :coverage
+  end
+  
+  desc "Enforces coverage maintenance"
   RCov::VerifyTask.new(:verify) do |t|
     t.threshold = 100
-    t.index_html = 'meta/coverage/index.html'
+    t.index_html = :meta / :coverage / 'index.html'
   end
 
   desc "Open a browser window with the coverage report (Mac only)"
   task :open do
-    system 'open "meta/coverage/index.html"'
+    system 'open ' + :meta / :coverage / 'index.html' if PLATFORM['darwin']
   end
 end
 
@@ -54,4 +54,38 @@ end
 # end
 
 desc 'Check everything over before commiting'
-task :aok => [:rcov, :"rcov:verify", :rdoc]
+task :aok => [:'rcov:run', :'rcov:verify', :'rcov:open']
+
+# Tasks for systems
+Dir[Merb.root / "systems" / "*"].each do |system|
+  next unless File.directory? system
+  system = File.basename(system)
+  
+  namespace system do
+    namespace :rcov do
+      Spec::Rake::SpecTask.new(:run) do |t|
+        t.spec_opts = ["--format", "specdoc", "--colour"]
+        t.spec_files = Dir[:systems / system / :spec /:**/ :'*_spec.rb'].sort
+        t.libs = [:systems / system / :lib, 'lib', 'server/lib']
+        t.rcov = true
+        t.rcov_dir = :systems / system / :meta / :coverage
+        t.rcov_opts = ['--exclude', '".*"', '--include-file', "'systems/#{system}'"]
+      end
+      
+      desc "Enforces coverage maintenance"
+      RCov::VerifyTask.new(:verify) do |t|
+        t.threshold = 100
+        t.index_html = :systems / system / :meta / :coverage / 'index.html'
+      end
+
+      desc "Open a browser window with the coverage report (Mac only)"
+      task :open do
+        system 'open ' + :systems / system / :meta / :coverage / 'index.html' if
+          PLATFORM['darwin']
+      end
+    end
+    
+    desc 'Check everything over before commiting'
+    task :aok => [:'rcov:run', :'rcov:verify', :'rcov:open']
+  end
+end
