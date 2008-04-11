@@ -44,7 +44,7 @@ namespace :rcov do
     t.spec_files = Dir['spec/**/*_spec.rb'].sort
     t.libs = ['lib', 'server/lib' ]
     t.rcov = true
-    t.rcov_opts = ['--exclude-only', '"thisdoesntexist"', '--include-file', '^app,^lib']
+    t.rcov_opts = ['--exclude-only', '".*"', '--include-file', '^app,^lib']
     t.rcov_dir = :meta / :coverage
   end
   
