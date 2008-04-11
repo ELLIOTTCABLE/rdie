@@ -47,7 +47,7 @@ you can do anything you feel like doing in these games, just as was possible
 back in the days of D&D and the like.
 
 To achieve this programmatically, everything will be a script. rdie, and it's
-scripts, will be written in the popular [Ruby programming language][1]. Both
+scripts, will be written in the popular [Ruby programming language][3]. Both
 concepts within the gaming system, and items/monsters/places/people/spells
 within the setting will be scripts. One might write a script for a house rule
 weapon as simply as this:
@@ -77,11 +77,11 @@ To summarize:
  - players and DMs can control the entire gaming system through scripts,
  absolutely nothing is hardcoded into rdie
 
-We hope rdie will be the best thing to happen in gaming since [Gary Gygax][2]
+We hope rdie will be the best thing to happen in gaming since [Gary Gygax][4]
 (rest in peace, friend), to whom it is dedicated.
 
-  [1]: <http://ruby-lang.org/en> (Ruby programming language)
-  [2]: <http://youtube.com/watch?v=hxo9gFBHJsE> (Gary Gygax on D&D - YouTube)
+  [3]: <http://ruby-lang.org/en> (Ruby programming language)
+  [4]: <http://youtube.com/watch?v=hxo9gFBHJsE> (Gary Gygax on D&D - YouTube)
 
 Getting
 -------
@@ -93,14 +93,14 @@ following command:
     git clone git://github.com/elliottcable/rdie.git
 
 If you want to make changes to the codebase, you need to fork your own github
-repository for said changes. Send a pullrequest to [elliottcable][4]
+repository for said changes. Send a pullrequest to [elliottcable][5]
 when you've got something ready for the master that you think should be
 integrated into the root source.
 
-Bugs or feature requests can be submitted to our [ticketing system][5].
+Bugs or feature requests can be submitted to our [ticketing system][6].
 
-  [4]: <http://github.com/elliottcable> (elliottcable on GitHub)
-  [5]: <http://elliottcable.lighthouseapp.com/projects/9424-rdie/overview> (rdie on Lighthouse)
+  [5]: <http://github.com/elliottcable> (elliottcable on GitHub)
+  [6]: <http://elliottcable.lighthouseapp.com/projects/9424-rdie/overview> (rdie on Lighthouse)
 
 Requirements
 ------------
@@ -110,6 +110,8 @@ To run fora, you need the following gems:
 * merb-core
 * datamapper (and associated do_postgres, do_mysql, etc)
 * merb_datamapper (from merb-plugins)
+* haml
+* merb-haml (from merb-plugins)
 
 To develop and contribute to fora, you also need:
 
