@@ -24,6 +24,11 @@ task :merb_env do
   Merb.start_environment(:environment => init_env, :adapter => 'runner')
 end
 
+task :check_config do
+  raise 'You need to copy config/database.yml.sample to config/database.yml, and add your data!' unless
+    File.file? 'config/database.yml'
+end
+
 # Runs specs, generates rcov, and opens rcov in your browser.
 namespace :rcov do
   Spec::Rake::SpecTask.new(:run) do |t|
@@ -31,6 +36,15 @@ namespace :rcov do
     t.spec_files = Dir['spec/**/*_spec.rb'].sort
     t.libs = ['lib', 'server/lib' ]
     t.rcov = true
+    t.rcov_dir = :meta / :coverage
+  end
+  
+  Spec::Rake::SpecTask.new(:plain) do |t|
+    t.spec_opts = ["--format", "specdoc"]
+    t.spec_files = Dir['spec/**/*_spec.rb'].sort
+    t.libs = ['lib', 'server/lib' ]
+    t.rcov = true
+    t.rcov_opts = ['--exclude-only', '"thisdoesntexist"', '--include-file', '^app,^lib']
     t.rcov_dir = :meta / :coverage
   end
   
@@ -54,9 +68,9 @@ end
 # end
 
 desc 'Check everything over before commiting'
-task :aok => [:'rcov:run', :'rcov:verify', :'rcov:open']
+task :aok => [:check_config, :'rcov:run', :'rcov:verify', :'rcov:open']
 # desc 'Task run during continuous integration'
-task :cruise => [:'rcov:run', :'rcov:verify']
+task :cruise => [:check_config, :'rcov:plain', :'rcov:verify']
 
 # Tasks for systems
 Dir[Merb.root / "systems" / "*"].each do |system|
