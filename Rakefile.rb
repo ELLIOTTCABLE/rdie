@@ -55,6 +55,8 @@ end
 
 desc 'Check everything over before commiting'
 task :aok => [:'rcov:run', :'rcov:verify', :'rcov:open']
+# desc 'Task run during continuous integration'
+task :cruise => [:'rcov:run', :'rcov:verify']
 
 # Tasks for systems
 Dir[Merb.root / "systems" / "*"].each do |system|
