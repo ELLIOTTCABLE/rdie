@@ -6,7 +6,7 @@ then you play games. rdie can be used for nearly any 'PnP' or
 [table-top role-playing game][2], such as Dungeons & Dragons and other D20
 games, or RIFTS.
 
-  [1]: <http://rdie.yreality.net> (rdie homepage)
+  [1]: <http://rubydie.com> (rdie homepage)
   [2]: <http://en.wikipedia.org/wiki/Role-playing_game> (Role-playing game - Wikipedia)
 
 Philosophy & goals
