@@ -1,0 +1,18 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: 100% Coverage
+desc: Gotta have 100% coverage, right guys? (-;
+type: :feature
+component: RDie
+release: 
+reporter: elliottcable <git@elliottcable.name>
+status: :unstarted
+disposition: 
+creation_time: 2008-04-12 05:39:26.175246 Z
+references: []
+
+id: 3539d6e0b302be884f9d67198b678bb43573444f
+log_events: 
+- - 2008-04-12 05:39:56.189582 Z
+  - elliottcable <git@elliottcable.name>
+  - created
+  - Don't sign off this 'feature' until right before tagging a release. Just a reminder to keep coverage up there.

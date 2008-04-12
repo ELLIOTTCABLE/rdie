@@ -54,9 +54,34 @@ namespace :rcov do
     t.index_html = :meta / :coverage / 'index.html'
   end
 
-  desc "Open a browser window with the coverage report (Mac only)"
   task :open do
     system 'open ' + :meta / :coverage / 'index.html' if PLATFORM['darwin']
+  end
+end
+
+namespace :ditz do
+  
+  desc "Current issues summary"
+  task :status do
+    system 'ditz status'
+  end
+  desc "Show recent issue activity"
+  task :log do
+    system 'ditz log'
+  end
+  
+  desc "Generate issues to meta/issues"
+  task :html do
+    # `'d instead of system'd, because I don't want that output cluttering shit
+    `ditz html meta/issues`
+  end
+  task :'html:open' do
+    system 'open ' + :meta / :issues / 'index.html' if PLATFORM['darwin']
+  end
+  
+  desc "Stage all issues to git before commiting"
+  task :stage do
+    system 'git-add bugs/'
   end
 end
 
@@ -68,9 +93,9 @@ end
 # end
 
 desc 'Check everything over before commiting'
-task :aok => [:check_config, :'rcov:run', :'rcov:verify', :'rcov:open']
+task :aok => [:check_config, :'rcov:run', :'rcov:verify', :'ditz:stage', :'ditz:html', :'rcov:open', :'ditz:html:open']
 # desc 'Task run during continuous integration'
-task :cruise => [:check_config, :'rcov:plain', :'rcov:verify']
+task :cruise => [:check_config, :'rcov:plain', :'ditz:html', :'rcov:verify']
 
 # Tasks for systems
 Dir[Merb.root / "systems" / "*"].each do |system|

@@ -97,10 +97,11 @@ repository for said changes. Send a pullrequest to [elliottcable][5]
 when you've got something ready for the master that you think should be
 integrated into the root source.
 
-Bugs or feature requests can be submitted to our [ticketing system][6].
+Bugs or feature requests can be submitted by forking a repository as
+previously described, and then using [ditz][6] to add an issue.
 
   [5]: <http://github.com/elliottcable> (elliottcable on GitHub)
-  [6]: <http://elliottcable.lighthouseapp.com/projects/9424-rdie/overview> (rdie on Lighthouse)
+  [6]: <http://ditz.rubyforge.org/> (Ditz issue tracking)
 
 Requirements
 ------------
@@ -119,6 +120,7 @@ To develop and contribute to fora, you also need:
 * rspec
 * rake
 * rcov
+* ditz
 
 merb edge
 ---------

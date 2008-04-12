@@ -1,0 +1,26 @@
+--- !ditz.rubyforge.org,2008-03-06/project 
+name: RDie
+version: "0.2"
+components: 
+- !ditz.rubyforge.org,2008-03-06/component 
+  name: RDie
+- !ditz.rubyforge.org,2008-03-06/component 
+  name: API
+- !ditz.rubyforge.org,2008-03-06/component 
+  name: Store
+- !ditz.rubyforge.org,2008-03-06/component 
+  name: Webface
+- !ditz.rubyforge.org,2008-03-06/component 
+  name: Termface
+releases: 
+- !ditz.rubyforge.org,2008-03-06/release 
+  name: 0 (stable API)
+  status: :unreleased
+  release_time: 
+  log_events: 
+  - - 2008-04-12 05:38:43.120283 Z
+    - elliottcable <git@elliottcable.name>
+    - created
+    - |-
+      Pre-release, to guarantee a stable API to developers for writing game system plugin modules for RDie.
+      Important to finish this up before moving on to a functioning front-end, so as to give the developers time to get their systems ready at the same time as we release RDie 1.

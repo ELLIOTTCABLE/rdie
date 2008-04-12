@@ -1,0 +1,26 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Set up ditz as a bug tracker
+desc: ""
+type: :feature
+component: RDie
+release: 
+reporter: elliottcable <git@elliottcable.name>
+status: :closed
+disposition: :fixed
+creation_time: 2008-04-12 05:58:52.470988 Z
+references: []
+
+id: f460ba4e1c383255715d43705d4b3659177bd131
+log_events: 
+- - 2008-04-12 05:58:55.801148 Z
+  - elliottcable <git@elliottcable.name>
+  - created
+  - ""
+- - 2008-04-12 06:02:45.165073 Z
+  - elliottcable <git@elliottcable.name>
+  - changed status from unstarted to in_progress
+  - Setting it up...
+- - 2008-04-12 06:03:35.249745 Z
+  - elliottcable <git@elliottcable.name>
+  - closed issue with disposition fixed
+  - All configured!
