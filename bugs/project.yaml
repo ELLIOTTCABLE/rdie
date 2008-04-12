@@ -12,6 +12,8 @@ components:
   name: Webface
 - !ditz.rubyforge.org,2008-03-06/component 
   name: Termface
+- !ditz.rubyforge.org,2008-03-06/component 
+  name: Meta
 releases: 
 - !ditz.rubyforge.org,2008-03-06/release 
   name: 0 (stable API)

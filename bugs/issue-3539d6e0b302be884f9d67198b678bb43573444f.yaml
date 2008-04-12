@@ -3,9 +3,9 @@ title: 100% Coverage
 desc: Gotta have 100% coverage, right guys? (-;
 type: :feature
 component: RDie
-release: 
+release: 0 (stable API)
 reporter: elliottcable <git@elliottcable.name>
-status: :unstarted
+status: :paused
 disposition: 
 creation_time: 2008-04-12 05:39:26.175246 Z
 references: []
@@ -16,3 +16,15 @@ log_events:
   - elliottcable <git@elliottcable.name>
   - created
   - Don't sign off this 'feature' until right before tagging a release. Just a reminder to keep coverage up there.
+- - 2008-04-12 10:42:53.402961 Z
+  - elliottcable <git@elliottcable.name>
+  - assigned to release 0 (stable API) from unassigned
+  - ""
+- - 2008-04-12 10:45:32.668519 Z
+  - elliottcable <git@elliottcable.name>
+  - changed status from unstarted to in_progress
+  - ""
+- - 2008-04-12 10:45:37.280716 Z
+  - elliottcable <git@elliottcable.name>
+  - changed status from in_progress to paused
+  - ""

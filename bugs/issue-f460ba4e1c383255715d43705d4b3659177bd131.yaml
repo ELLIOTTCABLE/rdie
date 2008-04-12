@@ -3,7 +3,7 @@ title: Set up ditz as a bug tracker
 desc: ""
 type: :feature
 component: RDie
-release: 
+release: 0 (stable API)
 reporter: elliottcable <git@elliottcable.name>
 status: :closed
 disposition: :fixed
@@ -24,3 +24,7 @@ log_events:
   - elliottcable <git@elliottcable.name>
   - closed issue with disposition fixed
   - All configured!
+- - 2008-04-12 10:41:57.603308 Z
+  - elliottcable <git@elliottcable.name>
+  - assigned to release 0 (stable API) from unassigned
+  - ""

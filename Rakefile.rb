@@ -65,6 +65,9 @@ namespace :ditz do
   task :status do
     system 'ditz status'
   end
+  task :todo do
+    system 'ditz todo'
+  end
   desc "Show recent issue activity"
   task :log do
     system 'ditz log'
@@ -93,7 +96,7 @@ end
 # end
 
 desc 'Check everything over before commiting'
-task :aok => [:check_config, :'rcov:run', :'rcov:verify', :'ditz:stage', :'ditz:html', :'rcov:open', :'ditz:html:open']
+task :aok => [:check_config, :'rcov:run', :'rcov:verify', :'ditz:stage', :'ditz:html', :'ditz:todo', :'ditz:status', :'rcov:open', :'ditz:html:open']
 # desc 'Task run during continuous integration'
 task :cruise => [:check_config, :'rcov:plain', :'ditz:html', :'rcov:verify']
 
