@@ -1,0 +1,26 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Classist is running the ::classize method twice for every class init
+desc: For some reason, any code in self.classize on a module including Classist is being run twice, instead of once, on class creation.
+type: :bugfix
+component: API
+release: 0 (stable API)
+reporter: elliottcable <git@elliottcable.name>
+status: :closed
+disposition: :fixed
+creation_time: 2008-04-12 09:10:18.854263 Z
+references: []
+
+id: 7ceb27c31f2e272769862ab1ade77535722bf3d6
+log_events: 
+- - 2008-04-12 09:10:30.911937 Z
+  - elliottcable <git@elliottcable.name>
+  - created
+  - ""
+- - 2008-04-12 09:10:50.320112 Z
+  - elliottcable <git@elliottcable.name>
+  - changed status from unstarted to in_progress
+  - Going to try to fix this. Time to learn how to use ruby-debug!
+- - 2008-04-12 10:33:13.837584 Z
+  - elliottcable <git@elliottcable.name>
+  - closed issue with disposition fixed
+  - Was pushing the first ancestor onto the array twice, changed to .shift to fix that

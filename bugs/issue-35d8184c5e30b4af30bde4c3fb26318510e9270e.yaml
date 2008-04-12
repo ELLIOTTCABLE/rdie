@@ -1,0 +1,33 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Spec out Classist
+desc: "The Classist module is currently completely unspec'd. Remedy this d-:"
+type: :bugfix
+component: API
+release: 0 (stable API)
+reporter: elliottcable <git@elliottcable.name>
+status: :paused
+disposition: 
+creation_time: 2008-04-12 08:30:55.286464 Z
+references: []
+
+id: 35d8184c5e30b4af30bde4c3fb26318510e9270e
+log_events: 
+- - 2008-04-12 08:30:59.336422 Z
+  - elliottcable <git@elliottcable.name>
+  - created
+  - ""
+- - 2008-04-12 08:47:43.331125 Z
+  - elliottcable <git@elliottcable.name>
+  - changed status from unstarted to in_progress
+  - Specc'ing on classist now. Ugh, always hard to spec intent instead of implementation with metacode... >,<
+- - 2008-04-12 08:51:46.354367 Z
+  - elliottcable <git@elliottcable.name>
+  - changed status from in_progress to paused
+  - "Ugh, ran into a problem. Opening a ticket for it, and switching to work on said ticket. See #api-3"
+- - 2008-04-12 10:35:20.793278 Z
+  - elliottcable <git@elliottcable.name>
+  - commented
+  - |-
+    Having trouble figuring out a way to hook into anonymous class creation. See this RCR, and the following discussion list thread:
+    http://blade.nagaokaut.ac.jp/cgi-bin/scat.rb/ruby/ruby-talk/44249
+    http://readlist.com/lists/ruby-lang.org/ruby-talk/2/12138.html

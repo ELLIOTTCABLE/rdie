@@ -1,0 +1,22 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Spec out Attrist
+desc: Attrist is completely unrepresented in the specs, it isn't even recorded in rcov. Write some!
+type: :bugfix
+component: API
+release: 0 (stable API)
+reporter: elliottcable <git@elliottcable.name>
+status: :unstarted
+disposition: 
+creation_time: 2008-04-12 10:36:13.364030 Z
+references: []
+
+id: b58baf11104371b8d78b353f098de133df6ee94e
+log_events: 
+- - 2008-04-12 10:36:16.030004 Z
+  - elliottcable <git@elliottcable.name>
+  - created
+  - ""
+- - 2008-04-12 10:36:44.099365 Z
+  - elliottcable <git@elliottcable.name>
+  - changed title
+  - ""

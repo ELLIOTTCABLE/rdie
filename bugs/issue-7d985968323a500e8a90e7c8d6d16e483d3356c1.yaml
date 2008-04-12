@@ -1,0 +1,18 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Fix RDie::System::classize's S constant setting
+desc: Classize is currently setting the S constant to the class itself, not to newly created instances of the new class.
+type: :bugfix
+component: API
+release: 0 (stable API)
+reporter: elliottcable <git@elliottcable.name>
+status: :unstarted
+disposition: 
+creation_time: 2008-04-12 08:29:33.915160 Z
+references: []
+
+id: 7d985968323a500e8a90e7c8d6d16e483d3356c1
+log_events: 
+- - 2008-04-12 08:30:03.244220 Z
+  - elliottcable <git@elliottcable.name>
+  - created
+  - This is rather critical, because I expect to be able to tell Sysdevs they can use 'S.' as a shortcut for 'self.'.
