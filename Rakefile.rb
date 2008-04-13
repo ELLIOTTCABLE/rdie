@@ -55,7 +55,7 @@ namespace :rcov do
   end
   
   Spec::Rake::VerifySpecRatioTask.new(:ratio) do |t|
-    t.ratio = 0.50
+    t.ratio = 0.20
   end
 
   task :open do
