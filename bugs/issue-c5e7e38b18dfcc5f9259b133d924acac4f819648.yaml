@@ -1,0 +1,26 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Enforce LoC / LoS ratio
+desc: Specs should fail if there are less lines of specs than lines of code. Just another tool, like the rcov verification task, too attempt to help enforce spec coverage
+type: :feature
+component: RDie
+release: 0 (stable API)
+reporter: elliottcable <git@elliottcable.name>
+status: :closed
+disposition: :fixed
+creation_time: 2008-04-13 06:16:28.900008 Z
+references: []
+
+id: c5e7e38b18dfcc5f9259b133d924acac4f819648
+log_events: 
+- - 2008-04-13 06:16:30.283790 Z
+  - elliottcable <git@elliottcable.name>
+  - created
+  - ""
+- - 2008-04-13 06:16:46.202566 Z
+  - elliottcable <git@elliottcable.name>
+  - changed status from unstarted to in_progress
+  - Going to write a raketask for this
+- - 2008-04-13 12:17:44.402653 Z
+  - elliottcable <git@elliottcable.name>
+  - closed issue with disposition fixed
+  - Added a rake task that will fail if the ratio is below a certain level.

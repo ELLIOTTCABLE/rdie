@@ -6,6 +6,7 @@ require 'rake'
 require 'rake/rdoctask'
 require 'spec/rake/spectask'
 require 'spec/rake/verify_rcov'
+require 'lib/spec/rake/verify_spec_ratio'
 require 'fileutils'
 require 'merb-core'
 require 'rubigen'
@@ -48,10 +49,13 @@ namespace :rcov do
     t.rcov_dir = :meta / :coverage
   end
   
-  desc "Enforces coverage maintenance"
   RCov::VerifyTask.new(:verify) do |t|
     t.threshold = 100
     t.index_html = :meta / :coverage / 'index.html'
+  end
+  
+  Spec::Rake::VerifySpecRatioTask.new(:ratio) do |t|
+    t.ratio = 0.50
   end
 
   task :open do
@@ -61,10 +65,11 @@ end
 
 namespace :ditz do
   
-  desc "Current issues summary"
+  desc "Show current issue status overview"
   task :status do
     system 'ditz status'
   end
+  desc "Show currently open issues"
   task :todo do
     system 'ditz todo'
   end
@@ -73,32 +78,29 @@ namespace :ditz do
     system 'ditz log'
   end
   
-  desc "Generate issues to meta/issues"
+  # desc "Generate issues to meta/issues"
   task :html do
     # `'d instead of system'd, because I don't want that output cluttering shit
     `ditz html meta/issues`
   end
+  # desc "Opens meta/issues in your main browser, if you are using a Macintosh"
   task :'html:open' do
     system 'open ' + :meta / :issues / 'index.html' if PLATFORM['darwin']
   end
   
-  desc "Stage all issues to git before commiting"
+  desc "Stage all issues to git (to be run before commiting, or just use aok)"
   task :stage do
     system 'git-add bugs/'
   end
 end
 
-# Well that was a waste of time...
-# Rake::RDocTask.new do |d|
-#   d.main = "meta/docs/index.rdoc"
-#   d.rdoc_files.include("app/**/*.rb", "lib/**/*.rb")
-#   d.rdoc_dir = :meta / :documentation
-# end
-
 desc 'Check everything over before commiting'
-task :aok => [:check_config, :'rcov:run', :'rcov:verify', :'ditz:stage', :'ditz:html', :'ditz:todo', :'ditz:status', :'rcov:open', :'ditz:html:open']
+task :aok => [:check_config,
+              :'rcov:run', :'rcov:verify', :'rcov:ratio', :'rcov:open',
+              :'ditz:stage', :'ditz:html', :'ditz:todo', :'ditz:status', :'ditz:html:open']
+
 # desc 'Task run during continuous integration'
-task :cruise => [:check_config, :'rcov:plain', :'ditz:html', :'rcov:verify']
+task :cruise => [:check_config, :'rcov:plain', :'ditz:html', :'rcov:verify', :'rcov:ratio']
 
 # Tasks for systems
 Dir[Merb.root / "systems" / "*"].each do |system|
@@ -118,7 +120,8 @@ Dir[Merb.root / "systems" / "*"].each do |system|
       
       desc "Enforces coverage maintenance"
       RCov::VerifyTask.new(:verify) do |t|
-        t.threshold = 100
+        t.threshold = 95
+        t.require_exact_threshold = false
         t.index_html = :systems / system / :meta / :coverage / 'index.html'
       end
 
