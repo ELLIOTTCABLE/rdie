@@ -3,7 +3,8 @@ Gem.clear_paths
 Gem.path.unshift(File.join(File.dirname(__FILE__), "gems"))
 
 require 'rake'
-require 'rake/rdoctask'
+require 'yard'
+require 'yard/rake/yardoc_task'
 require 'spec/rake/spectask'
 require 'spec/rake/verify_rcov'
 require 'stringray/core_ext/spec/rake/verify_rcov'
@@ -63,6 +64,26 @@ namespace :rcov do
 
   task :open do
     system 'open ' + :meta / :coverage / 'index.html' if PLATFORM['darwin']
+  end
+end
+
+namespace :yard do
+  YARD::Rake::YardocTask.new :generate do |t|
+    t.files   = ['lib/**/*.rb', 'app/**/*.rb']
+    t.options = ['--output-dir', "meta/documentation",
+                    '--readme', 'README.mkdn',
+                    '--markup', 'markdown']
+  end
+  
+  YARD::Rake::YardocTask.new :db do |t|
+    t.files   = ['lib/**/*.rb']
+    t.options = ['--no-output',
+                    '--readme', 'README.mkdn',
+                    '--markup', 'markdown']
+  end
+  
+  task :open do
+    system 'open ' + 'meta' / 'documentation' / 'index.html' if PLATFORM['darwin']
   end
 end
 
@@ -132,6 +153,27 @@ Dir[Merb.root / "systems" / "*"].each do |system|
       task :open do
         system 'open ' + :systems / system / :meta / :coverage / 'index.html' if
           PLATFORM['darwin']
+      end
+    end
+    
+    namespace :yard do
+      YARD::Rake::YardocTask.new :generate do |t|
+        t.files   = ["systems/#{system}/**/*.rb"]
+        t.options = ['--output-dir', "systems/#{system}/meta/documentation",
+                        '--db', "systems/#{system}/.yardoc",
+                        '--readme', 'README.mkdn',
+                        '--markup', 'markdown']
+      end
+
+      YARD::Rake::YardocTask.new :db do |t|
+        t.files   = ["systems/#{system}/**/*.rb"]
+        t.options = ['--no-output', '--db', "systems/#{system}/.yardoc",
+                        '--readme', 'README.mkdn',
+                        '--markup', 'markdown']
+      end
+
+      task :open do
+        system 'open ' + 'meta' / 'documentation' / 'index.html' if PLATFORM['darwin']
       end
     end
     
