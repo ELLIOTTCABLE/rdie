@@ -38,6 +38,7 @@ namespace :rcov do
     t.spec_files = Dir['spec/**/*_spec.rb'].sort
     t.libs = ['lib', 'server/lib' ]
     t.rcov = true
+    t.rcov_opts = ['--exclude-only', '".*"', '--include-file', '^app,^lib']
     t.rcov_dir = :meta / :coverage
   end
   
@@ -102,7 +103,7 @@ task :aok => [:check_config,
               :'ditz:stage', :'ditz:html', :'ditz:todo', :'ditz:status', :'ditz:html:open']
 
 # desc 'Task run during continuous integration'
-task :ci => [:check_config, :'rcov:plain', :'ditz:html', :'rcov:verify', :'rcov:ratio']
+task :ci => [:'rcov:plain', :'ditz:html', :'rcov:verify', :'rcov:ratio']
 
 # Tasks for systems
 Dir[Merb.root / "systems" / "*"].each do |system|
