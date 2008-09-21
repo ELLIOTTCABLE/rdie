@@ -6,6 +6,7 @@ require 'rake'
 require 'rake/rdoctask'
 require 'spec/rake/spectask'
 require 'spec/rake/verify_rcov'
+require 'stringray/core_ext/spec/rake/verify_rcov'
 require 'lib/spec/rake/verify_spec_ratio'
 require 'fileutils'
 require 'merb-core'
@@ -50,7 +51,8 @@ namespace :rcov do
   end
   
   RCov::VerifyTask.new(:verify) do |t|
-    t.threshold = 100
+    t.threshold = 97.5
+    t.require_exact_threshold = false
     t.index_html = :meta / :coverage / 'index.html'
   end
   
@@ -100,7 +102,7 @@ task :aok => [:check_config,
               :'ditz:stage', :'ditz:html', :'ditz:todo', :'ditz:status', :'ditz:html:open']
 
 # desc 'Task run during continuous integration'
-task :cruise => [:check_config, :'rcov:plain', :'ditz:html', :'rcov:verify', :'rcov:ratio']
+task :ci => [:check_config, :'rcov:plain', :'ditz:html', :'rcov:verify', :'rcov:ratio']
 
 # Tasks for systems
 Dir[Merb.root / "systems" / "*"].each do |system|
