@@ -121,10 +121,11 @@ end
 desc 'Check everything over before commiting'
 task :aok => [:check_config,
               :'rcov:run', :'rcov:verify', :'rcov:ratio', :'rcov:open',
-              :'ditz:stage', :'ditz:html', :'ditz:todo', :'ditz:status', :'ditz:html:open']
+              :'ditz:stage', :'ditz:html', :'ditz:todo', :'ditz:status', :'ditz:html:open',
+              :'yard:generate', :'yard:open']
 
 # desc 'Task run during continuous integration'
-task :ci => [:'rcov:plain', :'ditz:html', :'rcov:verify', :'rcov:ratio']
+task :ci => [:'rcov:plain', :'ditz:html', :'rcov:verify', :'rcov:ratio']#, :'yard:generate']
 
 # Tasks for systems
 Dir[Merb.root / "systems" / "*"].each do |system|
